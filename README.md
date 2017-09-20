@@ -1,1 +1,1 @@
-# js-racer
+# jsracer
