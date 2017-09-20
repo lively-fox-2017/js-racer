@@ -22,7 +22,8 @@ class JSRacer {
     for (let index in this.players) {
       board+='\n'+this.print_line(this.players[index].name, this.players[index].position);
     }
-    console.log( "\x1B[2J", board);
+    this.reset_board();
+    console.log( board);
   }
   print_line(player, pos) {
     //print per line
