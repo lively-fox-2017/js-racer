@@ -11,4 +11,13 @@ function sleep(milliseconds) {
   }
 }
 
+function play(racer) {
+  while (!racer.isFinished) {
+    racer.play();
+    sleep(800);
+  }
+}
+
 // Your code here...
+let racer = new JSRacer(3, 20);
+play(racer);
