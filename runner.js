@@ -11,4 +11,12 @@ function sleep(milliseconds) {
   }
 }
 
+var player = "abc"
+var run = new JSRacer(player,25)
+
+run.histori()
+while (run.finished() == "FINISH") {
+console.log(run.print_board());
+sleep(500)
+}
 // Your code here...
