@@ -12,3 +12,19 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let jsracer = new JSRacer(5, 31);
+
+if(jsracer.players > 52){
+	console.log("Jumlah pemain melebihi batas");
+}else{
+	jsracer.firstPosition();
+	jsracer.print_board();
+	sleep(1500);
+	while(jsracer.finished() !== true){
+		jsracer.advanced_player();
+		jsracer.print_board();
+		sleep(300);
+	}
+
+	console.log(jsracer.winner());
+}
