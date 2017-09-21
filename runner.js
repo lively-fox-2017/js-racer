@@ -12,3 +12,19 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+var newRace = new JSRacer(['A','B'], 20);
+while(true){
+  if(!newRace.finished()){
+    console.log(newRace.print_board());
+    for(var i=0;i<newRace.players.length;i++){
+      newRace.advanced_player(i);
+    }
+    sleep(1000);
+  }
+  else{
+    console.log(newRace.print_board());
+    console.log(newRace.winner());
+    sleep(1000)
+    break;
+  }
+}
