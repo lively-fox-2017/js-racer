@@ -23,5 +23,3 @@ while (!race.finished()) {
 }
 
 race.winner();
-
-console.log(race.playersPositions);
