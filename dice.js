@@ -5,7 +5,9 @@ class Dice {
 
   }
   roll() {
-
+  	let d=6;
+  	let rolling=Math.floor(Math.random()*6);
+  	return rolling;
   }
 }
 
