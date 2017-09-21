@@ -12,7 +12,7 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
-var balap = new JSRacer(['a', 'b', 'c', 'd'], 30)
+var balap = new JSRacer(['a', 'b', 'c'], 30)
 while(balap.lanjut) {
   sleep(900)
   for(var i = 0; i < balap.pemain.length; i++) {
