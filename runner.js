@@ -12,3 +12,5 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let racer = new JSRacer(3, 50);
+racer.advanced_player(sleep);
