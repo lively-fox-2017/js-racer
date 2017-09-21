@@ -10,6 +10,7 @@ class JSRacer {
 	this.trapPosition = [];
 	this.selesai = false;
 	this.pemenang = "";
+	this.message = "";
   }
   
   firstPosition(){
@@ -31,7 +32,7 @@ class JSRacer {
   print_board() {
 	this.reset_board();
 	
-	console.log("- = Jebakan")
+	console.log(" - = Jebakan")
 	// Pemain untuk nentuin pemainnya dari a - Z tergantung inputan playersnya brapa
 	let pemain = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	pemain = pemain.slice(0,this.players).split("");
@@ -40,6 +41,8 @@ class JSRacer {
   }
   
   print_line(player, pos) {
+	// mereset value message
+	this.message = "";
 	// Untuk tampilin posisi player dan trap
 	let semuaJalur = "";
 	for(var row=0;row<this.players;row++){
@@ -47,7 +50,10 @@ class JSRacer {
 		for(let col=0;col<this.length;col++){
 			if(col === this.length-1 && pos[row]>col){
 				jalur += " |" + player[row];
+				// ubah value pemenang menjadi pemain
 				this.pemenang += player[row];
+				// ubah value message saat player finish
+				this.message = "Finiiiiiiisssssshhhh....";
 			}else if(col === pos[row]){
 				jalur += player[row] + "|";
 			}else if(col === this.trapPosition[row]){
@@ -55,10 +61,18 @@ class JSRacer {
 			}else{
 				jalur += " |";
 			}
+			
+			// kondisi dimana posisi pemain berada dalam jebakan
+			if(this.trapPosition[row] === pos[row]){
+				// ubah value message saat pemain dalam posisi tersebut
+				this.message = player[row] + " Terkena jebakan!! ~~hayo mundur 3 langkah..";
+			}
+			
 		}
 		semuaJalur += jalur + "\n";
 	}
 	console.log(semuaJalur);
+	console.log(this.message);
   }
   
   advanced_player() {
@@ -84,6 +98,10 @@ class JSRacer {
   finished() {
 	// Untuk batas akhir perulangan di runner.js
 	return this.selesai;
+  }
+  
+  firstMessage(str){
+	return this.message = str;
   }
   
   winner() {

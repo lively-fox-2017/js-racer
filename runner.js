@@ -20,7 +20,12 @@ if(jsracer.players > 52){
 	jsracer.firstPosition();
 	jsracer.pasangJebakan();
 	jsracer.print_board();
-	sleep(1500);
+	console.log(jsracer.firstMessage("Ready?"));
+	sleep(500);
+	console.log(jsracer.firstMessage("Set?"));
+	sleep(700);
+	console.log(jsracer.firstMessage("Go!!"));
+	sleep(300);
 	while(jsracer.finished() !== true){
 		jsracer.advanced_player();
 		jsracer.print_board();
