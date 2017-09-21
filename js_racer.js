@@ -1,15 +1,4 @@
 "use strict"
-// Override Array prototype
-Array.prototype.multiIndexOf = function(el) {
-  var idxs = [];
-  for (var i = this.length - 1; i >= 0; i--) {
-    if (this[i] === el) {
-      idxs.unshift(i);
-    }
-  }
-  return idxs;
-};
-
 const Dice = require('./dice');
 
 class JSRacer {
@@ -18,7 +7,6 @@ class JSRacer {
     this.position = [];
     this.length = length;
     this.isFinished = false;
-    this.winnerArr = [];
     this.dice = new Dice();
     // Initialize player
     for (var i = 0; i < players; i++) {
@@ -35,9 +23,13 @@ class JSRacer {
     this.print_board()
     for (let i = 0; i < this.players.length; i++) {
       this.advanced_player(i)
+      if (this.position[i] === this.length) {
+        this.finished();
+        break;
+      }
     }
     // IF there is/are winner
-    if (this.position.indexOf(this.length) !== -1) {
+    if (this.isFinished) {
       this.finished();
       // Print last position
       this.print_board()
@@ -77,23 +69,12 @@ class JSRacer {
     this.isFinished = true;
   }
   winner() {
-    // Get the winners
-    this.winnerArr = this.position.multiIndexOf(this.length);
+    // Get the winner
+    let winner = this.position.indexOf(this.length);
     let winnerName = '';
     // String of winners name
-    for (let i = 0; i < this.winnerArr.length; i++) {
-      if (i === this.winnerArr.length - 2)
-        winnerName += "'" + this.players[this.winnerArr[i]] + "'" + ' & ';
-      else if (i === this.winnerArr.length - 1)
-        winnerName += "'" + this.players[this.winnerArr[i]] + "'" + ' ';
-      else
-        winnerName += "'" + this.players[this.winnerArr[i]] + "'" + ', ';
-    }
-    // IF there is only single winner
-    if (this.winnerArr.length === 1)
-      console.log("Player " + winnerName + "is the winner");
-    else // Else then draw
-      console.log("Player " + winnerName + "are draw. Go play again :)");
+    winnerName += "'" + this.players[winner] + "'" + ' ';
+    console.log("Player " + winnerName + "is the winner");
   }
   reset_board() {
     console.log("\x1B[2J")
