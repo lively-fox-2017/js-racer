@@ -7,11 +7,14 @@ class JSRacer {
   constructor(players, length) {
     this.playerTot = players
     this.length = length
-    this.players = ['A', 'B', 'C', 'D']
+    this.maju = 0
+    this.awal = 0
+    this.win = ''
+    // this.players = ['A', 'B', 'C', 'D']
+    this.history = []
   }
 
   print_board() {
-    
     //method ini yang dipanggil pertama kali
     //method ini yang nantinya akan memanggil method advancedPlayer dan printLine
     
@@ -20,17 +23,26 @@ class JSRacer {
     //setelah mendapatkan posisi player selanjutnya maka panggil method printLine untuk nge-print line player tersebut
     //end looping
     //return array nya
-
-    let arr = []
-    let reg = new RegExp(',', 'g')
-    for(var i = 0; i < 4; i++){
-      arr.push([])
-      for(var j = 0; j < 30; j++){
-        arr[i].push('|')
+    this.reset_board()
+    let arrPlayer = []
+    if(this.awal === 0){
+      for(var i = 0; i < this.playerTot.length; i++){
+        arrPlayer.push(this.print_line(this.playerTot.split('')[i], 0))
+        this.awal++
+      }
+    }else if(this.awal !== 0){
+      for(var i = 0; i < this.playerTot.length; i++){
+        if(this.win === ''){
+          this.history[i] += this.advanced_player(i)
+          if(this.history[i] >= this.length - 1){
+            this.history[i] = this.length - 1
+            this.win += this.playerTot[i]
+          }
+        }
+        arrPlayer.push(this.print_line(this.playerTot.split('')[i], this.history[i]))
       }
     }
-    return arr.join('\n').replace(reg, ' ')
-
+    return arrPlayer.join('\n')
   }
 
   print_line(player, pos) {
@@ -40,27 +52,14 @@ class JSRacer {
     //end looping
     //return array
     
-    
-    // console.log(this.print_board().length)
-    let arr = []
-    let split = this.print_board().split('\n')
-    for(var i = 0; i < 1; i++){
-      split[0] += this.players[0]
-      split[1] += this.players[1]
-      split[2] += this.players[2]
-      split[3] += this.players[3]
-      // console.log(split)
+    let arrLength = []
+    for(var i = 0; i < this.length; i++){
+      if(i === pos){
+        arrLength.push(player)
+      }
+      arrLength.push(' ')
     }
-
-    console.log(split)
-    // arr.push(this.print_board())
-    // console.log(arr)
-    // for(var i = 0; i < this.players.length; i++){
-    //   this.players[0] = this.print_board()
-    //   arr.push(this.players)
-    // }
-    // return arr
-
+    return arrLength.join('|')
   }
 
   advanced_player(player) {
@@ -68,25 +67,40 @@ class JSRacer {
     //method ini untuk menentukan posisi player selanjutnya dengan cara mengocok dadu
     //karena ada pengocokan dadu maka Class Dice di panggil di sini
     //return nilai dadu yang keluar
+    let dice = new Dice()
+    this.maju = dice.roll()
+    return this.maju
 
   }
 
   finished() {
-
+    for(var i = 0; i < this.playerTot.length; i++){
+      if(this.history[i] >= this.length - 1){
+        console.log(this.winner(this.playerTot[i]))
+        return 'STOP'
+      }
+    }
+    return 'FINISH'
   }
 
-  winner() {
-
+  winner(player) {
+    return `Player ${player} is the Winner!`
   }
 
   reset_board() {
     console.log("\x1B[2J")
   }
 
+  historys() {
+    for(var i = 0; i < this.playerTot.length; i++){
+      this.history.push(0)
+    }
+    return this.history
+  }
+
 }
 
-let js = new JSRacer()
-// console.log(js.print_board())
-console.log(js.print_line())
+// let js = new JSRacer()
+// js.historys()
 
 module.exports = JSRacer;

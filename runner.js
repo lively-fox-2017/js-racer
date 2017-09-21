@@ -12,3 +12,10 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+var player = 'ABCD'
+var js = new JSRacer(player, 60)
+js.historys()
+while(js.finished() === 'FINISH'){
+  console.log(js.print_board())
+  sleep(250)
+}
