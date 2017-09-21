@@ -12,3 +12,17 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+
+var race = new JSRacer(8,50);
+race.jebakanbatman()
+// console.log(race.jebakan)
+while(race.finished() === false){
+  console.log('--------------------------------------TRACK LARI------------------------------')  
+  console.log(race.print_board());
+	sleep(1000);
+	// race.reset_board();	
+	
+}
+console.log('--------------------------------------TRACK LARI-------------------------------')  
+console.log(race.print_board())
+console.log(race.thewinner());
