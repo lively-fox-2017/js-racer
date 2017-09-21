@@ -12,3 +12,12 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+
+let play = new JSRacer(17,50) ;
+
+play.advanced_player();
+while (play.finished()==false) {
+  play.print_board()
+  sleep(500)
+}
+play.winner()
