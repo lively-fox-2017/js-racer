@@ -12,3 +12,17 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let game = new JSRacer(['a','b','c','d'], 50);
+game.print_board()
+sleep(700);
+while(game.finished()==false){
+  for (let indexP in game.players){
+    game.advanced_player(game.players[indexP].name, game.players.a.position);
+    game.print_board();
+    sleep(700);
+    if (game.finished()){
+      break
+    }
+  }
+
+}
