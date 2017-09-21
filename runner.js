@@ -12,3 +12,12 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+var balap = new JSRacer(['a', 'b'], 30)
+while(balap.lanjut) {
+  sleep(900)
+  balap.print_board()
+  balap.advanced_player(0)
+  balap.advanced_player(1)
+  balap.print_board()
+  console.log(balap.winner());
+}
