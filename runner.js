@@ -18,7 +18,7 @@ while(game.finished()==false){
   for (let indexP in game.players){
     game.advanced_player(game.players[indexP].name, game.players.a.position);
     game.print_board();
-    sleep(1000);
+    sleep(700);
     if (game.finished()){
       break
     }
