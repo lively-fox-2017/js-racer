@@ -14,12 +14,17 @@ function sleep(milliseconds) {
 // Your code here...
 const race = new JSRacer(['a', 'b', 'c', 'd', 'e'], 30);
 
+// console.log(race.traps);
+
 while (!race.finished()) {
 
   race.reset_board();
   race.print_line();
-  sleep(200);
+  sleep(400);
 
 }
 
 race.winner();
+
+race.get_died();
+

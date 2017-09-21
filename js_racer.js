@@ -8,11 +8,20 @@ class JSRacer {
     this.length = length;
     this.playersPositions = [];
     this.line = '';
+    this.traps = [];
+    this.died = [];
 
     // Generate players positions
-    for (let i = 0; i < players.length; i++) {
+    for (let i = 0; i < this.players.length; i++) {
 
       this.playersPositions.push(1);
+
+    }
+
+    // Generate traps
+    for (let i = 0; i < this.players.length; i++) {
+
+      this.traps.push( Math.floor( Math.random() * (this.length - 3) + 3 ) );
 
     }
   }
@@ -51,10 +60,24 @@ class JSRacer {
 
       for (let j = 1; j <= this.length; j++) {
 
-        if (j === this.playersPositions[i])
+        if (j === this.traps[i])
+          this.line += '|#';
+
+        if (j === this.playersPositions[i]) {
+
           this.line += '|'+ this.players[i];
-        else
+
+        } else {
+
           this.line += '| ';
+
+        }
+
+        if (this.playersPositions[i] === this.traps[i]) {
+          this.died.push(this.players[i]);
+          this.players.splice(i, 1);
+          this.playersPositions.splice(i, 1);
+        }
 
       }
 
@@ -83,7 +106,30 @@ class JSRacer {
   }
 
   reset_board() {
+
     process.stdout.write("\x1Bc")
+
+  }
+
+  get_died () {
+
+    // Break
+    console.log('');
+
+    if (this.died.length) {
+
+      for (let i = 0; i < this.died.length; i++) {
+
+        console.log('Player \'' + this.died[i] + '\' died! What a shame');
+
+      }
+
+    } else {
+
+      console.log('No one died, nice...');
+
+    }
+
   }
 
 }
