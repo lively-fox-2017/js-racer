@@ -33,11 +33,11 @@ console.log(Racer.print_line('B',1).join('').toString())
 		}
 		
 		console.log(Racer.print_line('A',temp).join('').toString())
+		console.log(Racer1.print_line('B',temp1).join('').toString())
 		Racer.finished(temp)
 		if(temp==21){
 			process.exit()
 		}
-		console.log(Racer1.print_line('B',temp1).join('').toString())
 		Racer1.finished(temp1)
 		if(temp1==21){
 			process.exit()
