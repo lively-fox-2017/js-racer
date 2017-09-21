@@ -7,6 +7,7 @@ class JSRacer {
 	this.players = players;
 	this.length = length;
 	this.position = [];
+	this.trapPosition = [];
 	this.selesai = false;
 	this.pemenang = "";
   }
@@ -18,46 +19,65 @@ class JSRacer {
 	}
   }
   
+  pasangJebakan(){
+	// Untuk nentuin posisi jebakan
+	let posisiJebakan;
+	for(let i=0;i<this.players;i++){
+		posisiJebakan = Math.ceil(Math.random()*this.length-2);
+		this.trapPosition.push(posisiJebakan);
+	}
+  }
+  
   print_board() {
-	// Untuk nampilin boardnya kebawah dan kesamping
 	this.reset_board();
 	
+	console.log("- = Jebakan")
 	// Pemain untuk nentuin pemainnya dari a - Z tergantung inputan playersnya brapa
 	let pemain = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	pemain = pemain.slice(0,this.players).split("");
-	let semuaJalur = "";
-	for(var row=0;row<this.players;row++){
-		semuaJalur += this.print_line(pemain[row], this.position[row])+"\n";
-	}
 	
-	console.log(semuaJalur);
+	return this.print_line(pemain, this.position)+"\n";
   }
   
   print_line(player, pos) {
-	// Untuk tampilin posisi player kesamping
-	let jalur = "";
-	for(let col=0;col<this.length;col++){
-		if(col === this.length-1 && pos>col){
-			jalur += " |" + player;
-			this.pemenang += player;
-		}else if(col === pos){
-			jalur += player + "|";
-		}else{
-			jalur += " |";
+	// Untuk tampilin posisi player dan trap
+	let semuaJalur = "";
+	for(var row=0;row<this.players;row++){
+		let jalur = "";
+		for(let col=0;col<this.length;col++){
+			if(col === this.length-1 && pos[row]>col){
+				jalur += " |" + player[row];
+				this.pemenang += player[row];
+			}else if(col === pos[row]){
+				jalur += player[row] + "|";
+			}else if(col === this.trapPosition[row]){
+				jalur += "-|";
+			}else{
+				jalur += " |";
+			}
 		}
+		semuaJalur += jalur + "\n";
 	}
-	return jalur;
+	console.log(semuaJalur);
   }
   
   advanced_player() {
 	// Untuk ngerubah atau set posisi tiap player
 	for(let i=0;i<this.players;i++){
-		this.position[i] += dice.roll();
-		// Karna cuma bisa ada 1 pemenang jd ketika a finish loop lgsg berenti
-		if(this.position[i] >= this.length){
-			// this.position[i] = this.length+1;
-			return this.selesai = true;
-		}
+		// Untuk merubah posisi dari player yang kena jebakan
+		if(this.position[i] === this.trapPosition[i]){
+			this.position[i] -= 3;
+			if(this.position[i] <0){
+				this.position[i] = 0;
+			}
+		}else{
+			this.position[i] += dice.roll();
+			// Karna cuma bisa ada 1 pemenang jd ketika a finish loop lgsg berenti
+			if(this.position[i] >= this.length){
+				// this.position[i] = this.length+1;
+				return this.selesai = true;
+			}
+		}		
 	}
   }
   

@@ -18,12 +18,13 @@ if(jsracer.players > 52){
 	console.log("Jumlah pemain melebihi batas");
 }else{
 	jsracer.firstPosition();
+	jsracer.pasangJebakan();
 	jsracer.print_board();
 	sleep(1500);
 	while(jsracer.finished() !== true){
 		jsracer.advanced_player();
 		jsracer.print_board();
-		sleep(300);
+		sleep(1000);
 	}
 
 	console.log(jsracer.winner());
