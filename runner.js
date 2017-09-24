@@ -1,6 +1,6 @@
-"use strict"
+'use strict'
 
-const JSRacer = require('./js_racer')
+const JSRacer = require('./js_racer');
 
 function sleep(milliseconds) {
   var start = new Date().getTime();
@@ -12,3 +12,10 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let racer = new JSRacer(3, 40);
+while (racer.finished() == false) {
+  racer.print_board();
+  sleep(3000);
+}
+racer.reset_board();
+racer.winner();
