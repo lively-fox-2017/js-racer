@@ -15,7 +15,7 @@ class Dice {
   }
 }
 let dice = new Dice();
-dice.roll();
+// dice.roll();
 
-// console.log(dice.number);
+// console.log(dice.roll());
 module.exports = Dice;
