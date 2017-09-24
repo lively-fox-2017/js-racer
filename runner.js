@@ -12,3 +12,12 @@ function sleep(milliseconds) {
 }
 
 // Your code here...
+let test = new JSRacer(26, 40);
+test.print_board();
+while (test.status) {
+  sleep(300);
+  for (var i = 0; i < test.players; i++) {
+    test.advanced_player(i);
+  }
+  test.print_board();
+}
